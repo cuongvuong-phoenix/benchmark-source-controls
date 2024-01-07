@@ -1,0 +1,36 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    base64 (0.2.0)
+    bigdecimal (3.1.5)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
+    nio4r (2.7.0)
+    oj (3.16.3)
+      bigdecimal (>= 3.0)
+    puma (6.4.1)
+      nio4r (~> 2.0)
+    rack (2.2.8)
+    rack-protection (3.2.0)
+      base64 (>= 0.1.0)
+      rack (~> 2.2, >= 2.2.4)
+    ruby2_keywords (0.0.5)
+    rugged (1.7.1)
+    sinatra (3.2.0)
+      mustermann (~> 3.0)
+      rack (~> 2.2, >= 2.2.4)
+      rack-protection (= 3.2.0)
+      tilt (~> 2.0)
+    tilt (2.3.0)
+
+PLATFORMS
+  x86_64-linux
+
+DEPENDENCIES
+  oj (~> 3.16)
+  puma
+  rugged (~> 1.7)
+  sinatra (~> 3.2.0)
+
+BUNDLED WITH
+   2.4.6

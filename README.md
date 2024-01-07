@@ -9,23 +9,24 @@
 
 ## ⚒ Usage
 
-1. The servers are programmed to listen on an endpoint with signature `/get_git_program/:root_path/:commit_id`. Therefore, you need to create/use a Git Repository and specify its absolute path inside [`bench.sh`](./bench.sh) (remember to escape `/` in the URL by using `%2F` instead). And then specify the commit SHA to fetch all files. For example:
-    - Repo path: `/home/bimbal/Development/test-repo`
-    - Commit SHA: `505130931b37ed91d80b32dfdd0f26b7de228c92`
-    - Endpoint to benchmark: `http://0.0.0.0:3000/get_git_program/%2Fhome%2Fbimbal%2FDevelopment%2Ftest-repo/505130931b37ed91d80b32dfdd0f26b7de228c92`
+1. The servers are programmed to listen on an endpoint with signature `/get_git_program` alongside `root_path` and `commit_id` query params. Therefore, you need to create/use a Git Repository and specify its absolute path inside [`bench.sh`](./bench.sh) and then specify the commit SHA to fetch all files. For example:
+
+   - Repo path: `/home/bimbal/Development/test-repo`
+   - Commit SHA: `505130931b37ed91d80b32dfdd0f26b7de228c92`
+   - Endpoint to benchmark: `http://0.0.0.0:3000/get_git_program?root_path=/home/bimbal/Development/test-repo&commit_id=505130931b37ed91d80b32dfdd0f26b7de228c92`
 
 2. Run the framework of your choice (e.g: Rust Axum):
 
-    ```bash
-    cd rust-axum
-    cargo run --release
-    ```
+   ```bash
+   cd rust-axum
+   cargo run --release
+   ```
 
 3. Open a new terminal to benchmark!
 
-    ```bash
-    ./bench.sh
-    ```
+   ```bash
+   ./bench.sh
+   ```
 
 ## 📈 Results
 
@@ -36,11 +37,11 @@
 - **OS**: EndeavourOS Linux x86_64
 - **Kernel**: 6.1.71-1-lts
 - **Environments**:
-  | Language   | Version         |
+  | Language | Version |
   | ---------- | --------------- |
-  | Rust       | 1.75.0 (stable) |
-  | JavaScript | 20.10.0 (LTS)   |
-  | Ruby       | 3.3.0           |
+  | Rust | 1.75.0 (stable) |
+  | JavaScript | 20.10.0 (LTS) |
+  | Ruby | 3.3.0 |
 
 > 🚩 Legends
 >
@@ -50,22 +51,22 @@
 
 | Language   | Framework             | Req/Sec (64) | Req/Sec (256) | Req/Sec (512) |
 | ---------- | --------------------- | -----------: | ------------: | ------------: |
-| Rust       | Axum                  |      9947.53 |      10257.90 |      10309.27 |
-| Ruby       | Puma (multi)          |      5126.97 |       4874.02 |       4815.19 |
-| JavaScript | Fastify (multi - pm2) |      2995.99 |       3181.48 |       3295.10 |
-| JavaScript | Express (multi - pm2) |      2586.02 |       2821.25 |       3066.97 |
-| JavaScript | Fastify               |      1231.40 |       1093.87 |       1089.53 |
-| JavaScript | Express               |      1054.51 |        951.61 |        951.29 |
-| Ruby       | Puma                  |       701.56 |        729.88 |        729.77 |
+| Rust       | Axum                  |     11852.28 |      11560.11 |      11452.11 |
+| Ruby       | Puma (multi)          |      5629.66 |       5487.81 |       5473.44 |
+| JavaScript | Fastify (multi - pm2) |      3321.60 |       3520.78 |       3596.18 |
+| JavaScript | Express (multi - pm2) |      3314.32 |       3517.49 |       3630.15 |
+| JavaScript | Fastify               |      1374.95 |       1182.23 |       1154.17 |
+| JavaScript | Express               |      1153.97 |       1046.26 |       1016.96 |
+| Ruby       | Puma                  |       649.61 |        614.39 |        591.86 |
 
 ### Average Latency
 
 | Language   | Framework             | Avg. Latency (64) | Avg. Latency (256) | Avg. Latency (512) |
 | ---------- | --------------------- | ----------------: | -----------------: | -----------------: |
-| Rust       | Axum                  |           6.49 ms |           25.10 ms |           50.39 ms |
-| Ruby       | Puma (multi)          |          12.49 ms |          118.68 ms |          183.22 ms |
-| JavaScript | Fastify (multi - pm2) |          21.78 ms |           79.91 ms |          154.16 ms |
-| JavaScript | Express (multi - pm2) |          25.18 ms |           90.46 ms |          164.44 ms |
-| JavaScript | Fastify               |          51.90 ms |          231.54 ms |          458.39 ms |
-| JavaScript | Express               |          60.59 ms |          263.85 ms |          527.08 ms |
-| Ruby       | Puma                  |         162.00 ms |            9.08 ms |            8.05 ms |
+| Rust       | Axum                  |           5.42 ms |           22.15 ms |           45.26 ms |
+| Ruby       | Puma (multi)          |          11.37 ms |          105.59 ms |          244.38 ms |
+| JavaScript | Fastify (multi - pm2) |          19.45 ms |           72.32 ms |          140.95 ms |
+| JavaScript | Express (multi - pm2) |          19.50 ms |           72.22 ms |          140.05 ms |
+| JavaScript | Fastify               |          46.56 ms |          213.71 ms |          435.53 ms |
+| JavaScript | Express               |          55.42 ms |          242.21 ms |          497.15 ms |
+| Ruby       | Puma                  |          27.76 ms |           23.66 ms |           24.80 ms |

@@ -3,9 +3,9 @@ const Git = require('nodegit');
 
 const app = Fastify();
 
-app.get("/get_git_program/:rootPath/:commitId", async (req, res) => {
-  const { rootPath, commitId } = req.params;
-  const files = await getGitProgram(rootPath, commitId);
+app.get("/get_git_program", async (req, res) => {
+  const { root_path, commit_id } = req.query;
+  const files = await getGitProgram(root_path, commit_id);
 
   res.send(files)
 })

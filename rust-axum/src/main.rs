@@ -1,16 +1,13 @@
 use std::path::{self};
 
 use anyhow::Error;
-use axum::{extract::Path, http::StatusCode, response::IntoResponse, routing::get, Json, Router};
+use axum::{extract::Query, http::StatusCode, response::IntoResponse, routing::get, Json, Router};
 use git2::{ObjectType, Oid, Repository, Tree, TreeEntry, TreeWalkMode, TreeWalkResult};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 #[tokio::main]
 async fn main() {
-    let app = Router::new().route(
-        "/get_git_program/:root_path/:commit_id",
-        get(get_git_program),
-    );
+    let app = Router::new().route("/get_git_program", get(get_git_program));
 
     let listener = tokio::net::TcpListener::bind("127.0.0.1:3000")
         .await
@@ -27,8 +24,17 @@ struct GitProgramFile {
     content: String,
 }
 
+#[derive(Deserialize)]
+struct GetGitProgramQueryParams {
+    root_path: String,
+    commit_id: String,
+}
+
 async fn get_git_program(
-    Path((root_path, commit_id)): Path<(String, String)>,
+    Query(GetGitProgramQueryParams {
+        root_path,
+        commit_id,
+    }): Query<GetGitProgramQueryParams>,
 ) -> Result<Json<Vec<GitProgramFile>>, AppError> {
     let repo = Repository::open(root_path)?;
     let commit = repo.find_commit(Oid::from_str(&commit_id)?)?;

@@ -48,7 +48,7 @@
 >
 > - 64, 256, 512, etc.: number of connections to keep open
 
-### Request Per Second
+### Requests Per Second
 
 | Language   | Framework             | Req/Sec (64) | Req/Sec (256) | Req/Sec (512) |
 | ---------- | --------------------- | -----------: | ------------: | ------------: |

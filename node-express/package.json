@@ -1,0 +1,17 @@
+{
+  "name": "node-fastify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:pm2": "pm2-runtime start index.js -i $(nproc)"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodegit": "^0.27.0"
+  }
+}

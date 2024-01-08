@@ -1,5 +1,9 @@
 #! /usr/bin/bash
 
-wrk -H 'Connection: keep-alive' --connections 64 --threads 16 --duration 15 --timeout 1 "http://127.0.0.1:3000/get_git_program?root_path=/home/bimbal/Development/playground/benchmark-source-controls/.repo&commit_id=505130931b37ed91d80b32dfdd0f26b7de228c92"
-wrk -H 'Connection: keep-alive' --connections 256 --threads 16 --duration 15 --timeout 1 "http://127.0.0.1:3000/get_git_program?root_path=/home/bimbal/Development/playground/benchmark-source-controls/.repo&commit_id=505130931b37ed91d80b32dfdd0f26b7de228c92"
-wrk -H 'Connection: keep-alive' --connections 512 --threads 16 --duration 15 --timeout 1 "http://127.0.0.1:3000/get_git_program?root_path=/home/bimbal/Development/playground/benchmark-source-controls/.repo&commit_id=505130931b37ed91d80b32dfdd0f26b7de228c92"
+source .env
+
+wrk -H 'Connection: keep-alive' --connections 64 --threads "$(nproc)" --duration 15 --timeout 5 "http://$HOST:$PORT/get_git_program?root_path=$REPO_PATH&commit_id=$COMMIT_SHA"
+printf -- '=%.0s' {1..80}; echo
+wrk -H 'Connection: keep-alive' --connections 256 --threads "$(nproc)" --duration 15 --timeout 5 "http://$HOST:$PORT/get_git_program?root_path=$REPO_PATH&commit_id=$COMMIT_SHA"
+printf -- '=%.0s' {1..80}; echo
+wrk -H 'Connection: keep-alive' --connections 512 --threads "$(nproc)" --duration 15 --timeout 5 "http://$HOST:$PORT/get_git_program?root_path=$REPO_PATH&commit_id=$COMMIT_SHA"

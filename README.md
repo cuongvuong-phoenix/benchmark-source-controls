@@ -1,19 +1,23 @@
-# Benchmark Source Control implementation between different web frameworks
+# Benchmark Source Control operations served by different web frameworks
+
+Currently, this repo benchmark the following operations:
+
+- List all blobs inside a Git repository at a specified commit.
 
 ## 📦 Requirements
 
-- `wrk` to run benchmark and collect results (why? [see this](https://k6.io/blog/comparing-best-open-source-load-testing-tools))
-- `postgresql` to store the results
-- `docker` as anisolated running environment of each framework
-- `jq` to process Docker metadata
+- `libgit2`: most Source Control libraries are just bindings of this
+- `wrk`: to run benchmark and collect results (why? [see this](https://k6.io/blog/comparing-best-open-source-load-testing-tools))
 
 ## 🚀 Usage
 
-1. The servers are programmed to listen on an endpoint `/get_git_program` that has `root_path` and `commit_id` query params. Therefore, you need to first create/use a Git Repository and specify its absolute path inside [`bench.sh`](./bench.sh), and then specify the commit SHA to fetch all files. For example:
+1. In `.env`, set your repository absolute path and commit SHA to benchmark. For example:
 
-   - Repo path: `/home/bimbal/Development/test-repo`
-   - Commit SHA: `505130931b37ed91d80b32dfdd0f26b7de228c92`
-   - Endpoint to benchmark: `http://0.0.0.0:3000/get_git_program?root_path=/home/bimbal/Development/test-repo&commit_id=505130931b37ed91d80b32dfdd0f26b7de228c92`
+   ```bash
+   # .env
+   REPO_PATH=/home/bimbal/Development/test-repo
+   COMMIT_SHA=505130931b37ed91d80b32dfdd0f26b7de228c92
+   ```
 
 2. Run the framework of your choice (e.g: Rust Axum):
 
@@ -42,11 +46,17 @@
   | Rust | 1.75.0 (stable) | ✅ | |
   | JavaScript | 20.10.0 (LTS) | ✅ | |
   | Ruby | 3.3.0 | ✅ | |
-  | Go | 1.21.5 | ❌ | [`git2go`](https://github.com/libgit2/git2go) hasn't had any update since _Oct 2022_, it's not even compatible with the latest version of `libgit2` now. Therefore, [`go-git`](https://github.com/go-git/go-git) is used instead. |
+  | Go | 1.21.5 | ❌ | [`git2go`](https://github.com/libgit2/git2go) hasn't had any update since _Oct 2022_ and it's not even compatible with the latest version of `libgit2` now. Therefore, [`go-git`](https://github.com/go-git/go-git) is used instead. |
+
+🗄 Repository specs:
+
+- **No. files**: 23
+- **Size**: 47.8 KB
 
 > 🚩 Legends
 >
 > - 64, 256, 512, etc.: number of connections to keep open
+> - Latency _timed out_: there are some requests that exceeds over 5s latency
 
 ### Requests Per Second
 
@@ -73,3 +83,11 @@
 | Ruby       | Puma                  |          27.76 ms |           23.66 ms |           24.80 ms |
 | JavaScript | Fastify               |          46.56 ms |          213.71 ms |          435.53 ms |
 | JavaScript | Express               |          55.42 ms |          242.21 ms |          497.15 ms |
+
+## Research
+
+TBD
+
+## Conclusion
+
+TBD
